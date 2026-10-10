@@ -41,7 +41,23 @@
             </div>
         </div>
 
-        <!-- Orders Table -->
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
+                <h2 class="text-md font-semibold text-slate-300 mb-4">Risk Distribution by Transport Mode</h2>
+                <div class="h-64">
+                    <canvas id="modeChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
+                <h2 class="text-md font-semibold text-slate-300 mb-4">Regional Supply Chain Risk Exposure</h2>
+                <div class="h-64">
+                    <canvas id="regionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Risk Active Shipments Table -->
         <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
             <h2 class="text-lg font-semibold mb-4 text-slate-200">High Risk Active Shipments</h2>
             <div class="overflow-x-auto">
@@ -59,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody id="orders-body" class="divide-y divide-slate-700/50">
-                        <!-- Loaded dynamically -->
+                        <!-- Dynamic content -->
                     </tbody>
                 </table>
             </div>
@@ -68,16 +84,21 @@
 
     <script>
         const fallbackData = {
-            monitored_shipments: "1,250",
-            simulated_delay_risk: "18.5%",
-            value_at_risk: "$450,000",
-            estimated_sla_score: "94.2%",
+            monitored_shipments: 1250,
+            simulated_delay_risk: 18.5,
+            value_at_risk: 450000,
+            estimated_sla_score: 94.2,
+            mode_risk: {"Sea": 45, "Road": 28, "Air": 12, "Rail": 10},
+            market_risk: {"Asia": 35, "North America": 22, "Europe": 15},
             orders: [
                 {order_id: "ORD-9021", customer: "AeroCorp", region: "North America", department: "Electronics", mode: "Air", value: "$120,000", risk: "82%", recommended: "Reroute via Rail"},
                 {order_id: "ORD-8842", customer: "OmniGlobal", region: "Europe", department: "Apparel", mode: "Sea", value: "$85,000", risk: "74%", recommended: "Expedite Air Freight"},
                 {order_id: "ORD-7619", customer: "PacificTech", region: "Asia", department: "Industrial", mode: "Road", value: "$210,000", risk: "68%", recommended: "Buffer Inventory Hold"}
             ]
         };
+
+        let modeChartInstance = null;
+        let regionChartInstance = null;
 
         async function loadDashboard() {
             try {
@@ -91,11 +112,53 @@
         }
 
         function renderUI(data) {
-            document.getElementById('metric-shipments').innerText = data.monitored_shipments || "1,250";
-            document.getElementById('metric-risk').innerText = typeof data.simulated_delay_risk === 'number' ? data.simulated_delay_risk + "%" : data.simulated_delay_risk;
-            document.getElementById('metric-value').innerText = typeof data.value_at_risk === 'number' ? "$" + data.value_at_risk.toLocaleString() : data.value_at_risk;
-            document.getElementById('metric-sla').innerText = typeof data.estimated_sla_score === 'number' ? data.estimated_sla_score + "%" : data.estimated_sla_score;
+            document.getElementById('metric-shipments').innerText = (data.monitored_shipments || 1250).toLocaleString();
+            document.getElementById('metric-risk').innerText = (data.simulated_delay_risk || 18.5) + "%";
+            document.getElementById('metric-value').innerText = "$" + (data.value_at_risk || 450000).toLocaleString();
+            document.getElementById('metric-sla').innerText = (data.estimated_sla_score || 94.2) + "%";
 
+            // Render Mode Chart
+            const modeCtx = document.getElementById('modeChart').getContext('2d');
+            const modeData = data.mode_risk || fallbackData.mode_risk;
+            if (modeChartInstance) modeChartInstance.destroy();
+            modeChartInstance = new Chart(modeCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(modeData),
+                    datasets: [{
+                        data: Object.values(modeData),
+                        backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444', '#10b981']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+            });
+
+            // Render Regional Chart
+            const regionCtx = document.getElementById('regionChart').getContext('2d');
+            const regionData = data.market_risk || fallbackData.market_risk;
+            if (regionChartInstance) regionChartInstance.destroy();
+            regionChartInstance = new Chart(regionCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(regionData),
+                    datasets: [{
+                        label: 'Risk %',
+                        data: Object.values(regionData),
+                        backgroundColor: '#6366f1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { color: '#94a3b8' } },
+                        y: { ticks: { color: '#94a3b8' }, beginAtZero: true }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            // Render Orders
             const orders = data.orders || fallbackData.orders;
             const tbody = document.getElementById('orders-body');
             tbody.innerHTML = orders.map(o => `
@@ -106,7 +169,7 @@
                     <td class="p-3">${o.department}</td>
                     <td class="p-3">${o.mode}</td>
                     <td class="p-3">${o.value}</td>
-                    <td class="p-3"><span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs font-bold">${o.risk}</span></td>
+                    <td class="p-3"><span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs font-bold">${typeof o.risk === 'number' ? o.risk + '%' : o.risk}</span></td>
                     <td class="p-3 text-emerald-400 font-medium">${o.recommended}</td>
                 </tr>
             `).join('');
