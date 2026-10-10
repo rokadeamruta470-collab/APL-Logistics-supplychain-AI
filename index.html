@@ -3,79 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APL Logistics | AI Command Center</title>
+    <title>APL Logistics | AI Disruption Command Center</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
 </head>
-<body class="bg-slate-900 text-white min-h-screen p-6 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6">
     <div class="max-w-7xl mx-auto space-y-6">
-        <!-- Header -->
-        <header class="flex justify-between items-center border-b border-slate-700 pb-4">
+        
+        <!-- Top Navigation / Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center glass-card p-5 rounded-2xl gap-4">
             <div>
-                <h1 class="text-2xl font-bold text-blue-400">APL Logistics AI Disruption Command Center</h1>
-                <p class="text-slate-400 text-sm">Real-time Predictive Supply Chain Risk Analytics</p>
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-600/20 text-blue-400 rounded-lg font-black text-xl">APL</div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+                        Supply Chain AI Disruption Command Center
+                    </h1>
+                </div>
+                <p class="text-slate-400 text-xs mt-1">Predictive Analytics • Real-Time Risk Engine • Automated Recommendations</p>
             </div>
-            <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                System Live
+            <div class="flex items-center gap-4">
+                <div class="bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-xl text-xs flex items-center gap-2">
+                    <span class="text-slate-400">Active Risk Engine:</span>
+                    <span class="text-emerald-400 font-semibold">v2.4 NeuralNet</span>
+                </div>
+                <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    Live Connection
+                </div>
             </div>
         </header>
 
-        <!-- KPI Metrics Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                <p class="text-slate-400 text-xs font-medium">Monitored Shipments</p>
-                <h3 id="metric-shipments" class="text-2xl font-bold mt-1 text-white">1,250</h3>
+        <!-- KPI Metrics Ribbon -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-blue-500">
+                <p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Monitored Shipments</p>
+                <div class="flex justify-between items-baseline mt-2">
+                    <h3 id="metric-shipments" class="text-3xl font-extrabold text-white">4,850</h3>
+                    <span class="text-xs text-emerald-400 font-medium">+12% this week</span>
+                </div>
             </div>
-            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                <p class="text-slate-400 text-xs font-medium">Simulated Delay Risk</p>
-                <h3 id="metric-risk" class="text-2xl font-bold mt-1 text-amber-400">18.5%</h3>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-amber-500">
+                <p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Simulated Delay Risk</p>
+                <div class="flex justify-between items-baseline mt-2">
+                    <h3 id="metric-risk" class="text-3xl font-extrabold text-amber-400">24.8%</h3>
+                    <span class="text-xs text-amber-400 font-medium">Moderate Alert</span>
+                </div>
             </div>
-            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                <p class="text-slate-400 text-xs font-medium">Value at Risk</p>
-                <h3 id="metric-value" class="text-2xl font-bold mt-1 text-red-400">$450,000</h3>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-red-500">
+                <p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Value at Risk</p>
+                <div class="flex justify-between items-baseline mt-2">
+                    <h3 id="metric-value" class="text-3xl font-extrabold text-red-400">$1.85M</h3>
+                    <span class="text-xs text-red-400 font-medium">High Exposure</span>
+                </div>
             </div>
-            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl">
-                <p class="text-slate-400 text-xs font-medium">Estimated SLA Score</p>
-                <h3 id="metric-sla" class="text-2xl font-bold mt-1 text-emerald-400">94.2%</h3>
+            <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500">
+                <p class="text-slate-400 text-xs font-medium uppercase tracking-wider">Estimated SLA Score</p>
+                <div class="flex justify-between items-baseline mt-2">
+                    <h3 id="metric-sla" class="text-3xl font-extrabold text-emerald-400">91.5%</h3>
+                    <span class="text-xs text-emerald-400 font-medium">Optimal</span>
+                </div>
             </div>
         </div>
 
-        <!-- Charts Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
-                <h2 class="text-md font-semibold text-slate-300 mb-4">Risk Distribution by Transport Mode</h2>
-                <div class="h-64">
+        <!-- Dynamic Visualization Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Mode Chart -->
+            <div class="glass-card p-6 rounded-2xl">
+                <h2 class="text-base font-semibold text-slate-200 mb-1">Risk Exposure by Transport Mode</h2>
+                <p class="text-xs text-slate-400 mb-4">Probability of delay across shipping routes</p>
+                <div class="relative h-64">
                     <canvas id="modeChart"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl">
-                <h2 class="text-md font-semibold text-slate-300 mb-4">Regional Supply Chain Risk Exposure</h2>
-                <div class="h-64">
+
+            <!-- Regional Risk Chart -->
+            <div class="glass-card p-6 rounded-2xl lg:col-span-2">
+                <h2 class="text-base font-semibold text-slate-200 mb-1">Regional Disruptions Analytics</h2>
+                <p class="text-xs text-slate-400 mb-4">Risk levels grouped by major supply chain trade corridors</p>
+                <div class="relative h-64">
                     <canvas id="regionChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <!-- High Risk Active Shipments Table -->
-        <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
-            <h2 class="text-lg font-semibold mb-4 text-slate-200">High Risk Active Shipments</h2>
+        <!-- High-Risk Shipments Operational Table -->
+        <div class="glass-card rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <h2 class="text-lg font-bold text-white">Active High-Risk Shipments</h2>
+                    <p class="text-xs text-slate-400">AI-identified orders requiring immediate operational rerouting</p>
+                </div>
+                <span class="bg-red-500/10 border border-red-500/30 text-red-400 px-3 py-1 rounded-full text-xs font-semibold">
+                    Action Required
+                </span>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-slate-300">
-                    <thead class="bg-slate-700/50 text-slate-400 uppercase text-xs">
+                    <thead class="bg-slate-800/80 text-slate-400 uppercase text-xs">
                         <tr>
-                            <th class="p-3">Order ID</th>
-                            <th class="p-3">Customer</th>
-                            <th class="p-3">Region</th>
-                            <th class="p-3">Department</th>
-                            <th class="p-3">Mode</th>
-                            <th class="p-3">Value</th>
-                            <th class="p-3">Risk Level</th>
-                            <th class="p-3">AI Recommendation</th>
+                            <th class="p-3.5 rounded-l-lg">Order ID</th>
+                            <th class="p-3.5">Customer</th>
+                            <th class="p-3.5">Region</th>
+                            <th class="p-3.5">Department</th>
+                            <th class="p-3.5">Mode</th>
+                            <th class="p-3.5">Value</th>
+                            <th class="p-3.5">Risk Factor</th>
+                            <th class="p-3.5 rounded-r-lg">AI Mitigation Strategy</th>
                         </tr>
                     </thead>
-                    <tbody id="orders-body" class="divide-y divide-slate-700/50">
-                        <!-- Dynamic content -->
+                    <tbody id="orders-body" class="divide-y divide-slate-800/60">
+                        <!-- Loaded dynamically -->
                     </tbody>
                 </table>
             </div>
@@ -84,16 +127,19 @@
 
     <script>
         const fallbackData = {
-            monitored_shipments: 1250,
-            simulated_delay_risk: 18.5,
-            value_at_risk: 450000,
-            estimated_sla_score: 94.2,
-            mode_risk: {"Sea": 45, "Road": 28, "Air": 12, "Rail": 10},
-            market_risk: {"Asia": 35, "North America": 22, "Europe": 15},
+            monitored_shipments: 4850,
+            simulated_delay_risk: 24.8,
+            value_at_risk: 1850000,
+            estimated_sla_score: 91.5,
+            mode_risk: {"Sea Freight": 42, "Road Logistics": 28, "Air Cargo": 18, "Rail Express": 12},
+            market_risk: {"Asia Pacific": 38, "North America": 25, "Europe": 22, "Latin America": 15},
             orders: [
-                {order_id: "ORD-9021", customer: "AeroCorp", region: "North America", department: "Electronics", mode: "Air", value: "$120,000", risk: "82%", recommended: "Reroute via Rail"},
-                {order_id: "ORD-8842", customer: "OmniGlobal", region: "Europe", department: "Apparel", mode: "Sea", value: "$85,000", risk: "74%", recommended: "Expedite Air Freight"},
-                {order_id: "ORD-7619", customer: "PacificTech", region: "Asia", department: "Industrial", mode: "Road", value: "$210,000", risk: "68%", recommended: "Buffer Inventory Hold"}
+                {order_id: "ORD-9021", customer: "AeroCorp Int.", region: "North America", department: "Electronics", mode: "Air Cargo", value: "$320,000", risk: 88, recommended: "Reroute via Rail Express"},
+                {order_id: "ORD-8842", customer: "OmniGlobal Ltd", region: "Europe", department: "Automotive", mode: "Sea Freight", value: "$450,000", risk: 79, recommended: "Expedite Air Freight"},
+                {order_id: "ORD-7619", customer: "PacificTech Co", region: "Asia Pacific", department: "Electronics", mode: "Road Logistics", value: "$210,000", risk: 72, recommended: "Buffer Inventory Hold"},
+                {order_id: "ORD-6512", customer: "BioHealth SA", region: "Europe", department: "Pharma", mode: "Air Cargo", value: "$580,000", risk: 68, recommended: "Cold Chain Monitor Active"},
+                {order_id: "ORD-5401", customer: "MetroRetail Inc", region: "North America", department: "Apparel", mode: "Sea Freight", value: "$190,000", risk: 64, recommended: "Split Shipment Dispatch"},
+                {order_id: "ORD-4320", customer: "Zenith Energy", region: "Latin America", department: "Automotive", mode: "Rail Express", value: "$100,000", risk: 55, recommended: "Standard Monitoring"}
             ]
         };
 
@@ -112,10 +158,10 @@
         }
 
         function renderUI(data) {
-            document.getElementById('metric-shipments').innerText = (data.monitored_shipments || 1250).toLocaleString();
-            document.getElementById('metric-risk').innerText = (data.simulated_delay_risk || 18.5) + "%";
-            document.getElementById('metric-value').innerText = "$" + (data.value_at_risk || 450000).toLocaleString();
-            document.getElementById('metric-sla').innerText = (data.estimated_sla_score || 94.2) + "%";
+            document.getElementById('metric-shipments').innerText = (data.monitored_shipments || 4850).toLocaleString();
+            document.getElementById('metric-risk').innerText = (data.simulated_delay_risk || 24.8) + "%";
+            document.getElementById('metric-value').innerText = "$" + ((data.value_at_risk || 1850000) / 1000000).toFixed(2) + "M";
+            document.getElementById('metric-sla').innerText = (data.estimated_sla_score || 91.5) + "%";
 
             // Render Mode Chart
             const modeCtx = document.getElementById('modeChart').getContext('2d');
@@ -127,10 +173,17 @@
                     labels: Object.keys(modeData),
                     datasets: [{
                         data: Object.values(modeData),
-                        backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444', '#10b981']
+                        backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981'],
+                        borderWidth: 0
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#94a3b8' } } } }
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12 } } 
+                    } 
+                }
             });
 
             // Render Regional Chart
@@ -144,33 +197,38 @@
                     datasets: [{
                         label: 'Risk %',
                         data: Object.values(regionData),
-                        backgroundColor: '#6366f1'
+                        backgroundColor: 'rgba(99, 102, 241, 0.85)',
+                        borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        x: { ticks: { color: '#94a3b8' } },
-                        y: { ticks: { color: '#94a3b8' }, beginAtZero: true }
+                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true }
                     },
                     plugins: { legend: { display: false } }
                 }
             });
 
-            // Render Orders
+            // Render Orders Table
             const orders = data.orders || fallbackData.orders;
             const tbody = document.getElementById('orders-body');
             tbody.innerHTML = orders.map(o => `
-                <tr class="hover:bg-slate-700/30">
-                    <td class="p-3 font-semibold text-blue-400">${o.order_id}</td>
-                    <td class="p-3">${o.customer}</td>
-                    <td class="p-3">${o.region}</td>
-                    <td class="p-3">${o.department}</td>
-                    <td class="p-3">${o.mode}</td>
-                    <td class="p-3">${o.value}</td>
-                    <td class="p-3"><span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs font-bold">${typeof o.risk === 'number' ? o.risk + '%' : o.risk}</span></td>
-                    <td class="p-3 text-emerald-400 font-medium">${o.recommended}</td>
+                <tr class="hover:bg-slate-800/40 transition-colors">
+                    <td class="p-3.5 font-semibold text-blue-400">${o.order_id}</td>
+                    <td class="p-3.5 text-white">${o.customer}</td>
+                    <td class="p-3.5">${o.region}</td>
+                    <td class="p-3.5">${o.department}</td>
+                    <td class="p-3.5">${o.mode}</td>
+                    <td class="p-3.5 font-medium text-slate-200">${o.value}</td>
+                    <td class="p-3.5">
+                        <span class="bg-red-500/20 text-red-400 border border-red-500/30 px-2.5 py-1 rounded-full text-xs font-bold">
+                            ${o.risk}% High Risk
+                        </span>
+                    </td>
+                    <td class="p-3.5 text-emerald-400 font-medium">${o.recommended}</td>
                 </tr>
             `).join('');
         }
