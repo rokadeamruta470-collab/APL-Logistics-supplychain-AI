@@ -14,7 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load Model if available
 model = None
 if os.path.exists("model.pkl"):
     model = joblib.load("model.pkl")
@@ -28,22 +27,26 @@ def read_root():
             return f.read()
     return "<h1>APL Logistics AI System Live!</h1>"
 
-# Frontend exact Data Mapping
 @app.get("/api/kpis")
 @app.get("/kpis")
-def get_kpis(market: str = "ALL", shipping_mode: str = "ALL", segment: str = "ALL", risk_threshold: int = 50):
+def get_kpis():
     return {
-        "monitored_shipments": 1250,
-        "simulated_delay_risk": 18.5,
-        "value_at_risk": 450000,
-        "estimated_sla_score": 94.2,
-        "market_risk": {"North America": 22, "Europe": 15, "Asia": 35},
-        "mode_risk": {"Air": 12, "Sea": 45, "Road": 28, "Rail": 10},
-        "category_risk": {"Electronics": 30, "Apparel": 20, "Industrial": 50},
+        "monitored_shipments": 4850,
+        "simulated_delay_risk": 24.8,
+        "value_at_risk": 1850000,
+        "estimated_sla_score": 91.5,
+        "avg_lead_time": "14.2 Days",
+        "active_alerts": 12,
+        "mode_risk": {"Sea Freight": 42, "Road Logistics": 28, "Air Cargo": 18, "Rail Express": 12},
+        "market_risk": {"Asia Pacific": 38, "North America": 25, "Europe": 22, "Latin America": 15},
+        "category_risk": {"Electronics": 35, "Automotive": 25, "Apparel": 20, "Pharma": 20},
         "orders": [
-            {"order_id": "ORD-9021", "customer": "AeroCorp", "region": "North America", "department": "Electronics", "mode": "Air", "value": "$120,000", "risk": 82, "recommended": "Reroute via Rail"},
-            {"order_id": "ORD-8842", "customer": "OmniGlobal", "region": "Europe", "department": "Apparel", "mode": "Sea", "value": "$85,000", "risk": 74, "recommended": "Expedite Air Freight"},
-            {"order_id": "ORD-7619", "customer": "PacificTech", "region": "Asia", "department": "Industrial", "mode": "Road", "value": "$210,000", "risk": 68, "recommended": "Buffer Inventory Hold"}
+            {"order_id": "ORD-9021", "customer": "AeroCorp Int.", "region": "North America", "department": "Electronics", "mode": "Air Cargo", "value": "$320,000", "risk": 88, "recommended": "Reroute via Rail Express"},
+            {"order_id": "ORD-8842", "customer": "OmniGlobal Ltd", "region": "Europe", "department": "Automotive", "mode": "Sea Freight", "value": "$450,000", "risk": 79, "recommended": "Expedite Air Freight"},
+            {"order_id": "ORD-7619", "customer": "PacificTech Co", "region": "Asia Pacific", "department": "Electronics", "mode": "Road Logistics", "value": "$210,000", "risk": 72, "recommended": "Buffer Inventory Hold"},
+            {"order_id": "ORD-6512", "customer": "BioHealth SA", "region": "Europe", "department": "Pharma", "mode": "Air Cargo", "value": "$580,000", "risk": 68, "recommended": "Cold Chain Monitor Active"},
+            {"order_id": "ORD-5401", "customer": "MetroRetail Inc", "region": "North America", "department": "Apparel", "mode": "Sea Freight", "value": "$190,000", "risk": 64, "recommended": "Split Shipment Dispatch"},
+            {"order_id": "ORD-4320", "customer": "Zenith Energy", "region": "Latin America", "department": "Automotive", "mode": "Rail Express", "value": "$100,000", "risk": 55, "recommended": "Standard Monitoring"}
         ]
     }
 
